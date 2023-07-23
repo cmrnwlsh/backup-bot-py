@@ -16,7 +16,7 @@ token = json.load(open(join(path, 'config.json')))['token']
 @tree.command()
 async def world(interaction):
     """download the current world"""
-    with ZipFile('world.zip', 'w') as world:
+    with ZipFile('world.zip', 'w', compression=ZIP_DEFLATED, compresslevel=9) as world:
         world.write(join(world_path, 'Dedicated.db'), 'Dedicated.db')
         world.write(join(world_path, 'Dedicated.fwl'), 'Dedicated.fwl')
         world.close()
