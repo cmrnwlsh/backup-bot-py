@@ -16,12 +16,14 @@ token = json.load(open(join(path, 'config.json')))['token']
 @tree.command()
 async def world(interaction):
     """download the current world"""
+    await interaction.response.defer(ephemeral=False, thinking=True)
+
     with ZipFile('world.zip', 'w', compression=ZIP_DEFLATED, compresslevel=9) as world:
         world.write(join(world_path, 'Dedicated.db'), 'Dedicated.db')
         world.write(join(world_path, 'Dedicated.fwl'), 'Dedicated.fwl')
         world.close()
 
-    await interaction.response.send_message(file=discord.File(
+    await interaction.followup.send(file=discord.File(
         join(path, world.filename)
     ))
 
